@@ -1,0 +1,2376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyEats Recipe App - Downloadable Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #FF6B6B;
+      margin-bottom: 30px;
+    }
+    .file-container {
+      margin: 30px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .file-header {
+      padding: 10px 15px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .file-name {
+      font-weight: bold;
+      font-size: 16px;
+      color: #333;
+    }
+    .file-content {
+      padding: 15px;
+      background-color: #fff;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 14px;
+      border-radius: 0 0 5px 5px;
+    }
+    pre {
+      margin: 0;
+    }
+    .download-button {
+      background-color: #FF6B6B;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 20px auto;
+      display: block;
+    }
+    .download-button:hover {
+      background-color: #e05c5c;
+    }
+    .file-button {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 3px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .file-button:hover {
+      background-color: #e6e6e6;
+    }
+    #toc {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 30px;
+    }
+    .toc-header {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .toc-list {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .toc-list li {
+      margin-bottom: 5px;
+    }
+    .toc-list a {
+      text-decoration: none;
+      color: #0366d6;
+    }
+    .toc-list a:hover {
+      text-decoration: underline;
+    }
+    .file-type {
+      color: #666;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+    .section-header {
+      margin-top: 40px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      color: #333;
+    }
+    .hidden {
+      display: none;
+    }
+    .show-all-btn, .hide-all-btn {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 6px 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .show-all-btn:hover, .hide-all-btn:hover {
+      background-color: #e6e6e6;
+    }
+  </style>
+</head>
+<body>
+  <h1>EasyEats Recipe App - Full Project Code</h1>
+  
+  <p>This HTML file contains the entire source code for the EasyEats Recipe App built with React, TypeScript, and Express.js. The project enables users to search for recipes, apply filters, view detailed recipe information, and save favorites.</p>
+  
+  <div class="buttons-container" style="text-align: center; margin: 20px 0;">
+    <button class="show-all-btn" onclick="showAllFiles()">Expand All Files</button>
+    <button class="hide-all-btn" onclick="hideAllFiles()">Collapse All Files</button>
+    <button class="download-button" onclick="downloadProjectAsZip()">Download Project as ZIP</button>
+  </div>
+  
+  <div id="toc">
+    <div class="toc-header">Table of Contents</div>
+    <ul class="toc-list">
+      <li><a href="#client-section">Client-Side Files</a></li>
+      <li><a href="#server-section">Server-Side Files</a></li>
+      <li><a href="#shared-section">Shared Files</a></li>
+      <li><a href="#config-section">Configuration Files</a></li>
+    </ul>
+  </div>
+
+  <h2 id="client-section" class="section-header">Client-Side Files</h2>
+
+  <!-- client/index.html -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/index.html<span class="file-type">HTML</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>EasyEats - Simple Recipe Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Open Sans', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', sans-serif;
+      }
+      .font-heading {
+        font-family: 'Montserrat', sans-serif;
+      }
+      .font-body {
+        font-family: 'Open Sans', sans-serif;
+      }
+      .measurement {
+        font-family: monospace;
+        background-color: #F8F9FA;
+        padding: 0 4px;
+        border-radius: 2px;
+      }
+      .recipe-card {
+        transition: all 0.2s ease-in-out;
+      }
+      .recipe-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .difficulty-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+      .difficulty-easy {
+        color: #51CF66;
+      }
+      .difficulty-medium {
+        color: #FF922B;
+      }
+      .difficulty-hard {
+        color: #FA5252;
+      }
+      .recipe-step {
+        counter-increment: step-counter;
+        position: relative;
+        padding-left: 2.5rem;
+      }
+      .recipe-step::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #FF6B6B;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+      /* Animation for favorites */
+      @keyframes heartBeat {
+        0% { transform: scale(1); }
+        14% { transform: scale(1.2); }
+        28% { transform: scale(1); }
+        42% { transform: scale(1.2); }
+        70% { transform: scale(1); }
+      }
+      .heart-active {
+        color: #FF6B6B;
+        animation: heartBeat 1s;
+      }
+      .animate-heartBeat {
+        animation: heartBeat 1s;
+      }
+      @media print {
+        header, footer, button, .bg-neutral-100 {
+          display: none !important;
+        }
+        body * {
+          visibility: hidden;
+        }
+        .sm\:max-w-5xl.max-h-\[90vh\], .sm\:max-w-5xl.max-h-\[90vh\] * {
+          visibility: visible;
+        }
+        .sm\:max-w-5xl.max-h-\[90vh\] {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: auto;
+          overflow: visible !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+  </body>
+</html></pre>
+    </div>
+  </div>
+
+  <!-- client/src/main.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/main.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./index.css";
+
+const root = createRoot(document.getElementById("root")!);
+root.render(<App />);</pre>
+    </div>
+  </div>
+
+  <!-- client/src/index.css -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/index.css<span class="file-type">CSS</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>@tailwind base;
+@tailwind components;
+@tailwind utilities;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/App.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/App.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { Switch, Route, useLocation } from "wouter";
+import { queryClient } from "./lib/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import NotFound from "@/pages/not-found";
+import Home from "@/pages/home";
+import Favorites from "@/pages/favorites";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+
+function Router() {
+  const [location] = useLocation();
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header currentPath={location} />
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/favorites" component={Favorites} />
+        <Route component={NotFound} />
+      </Switch>
+      <Footer />
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Router />
+      <Toaster />
+    </QueryClientProvider>
+  );
+}
+
+export default App;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/lib/queryClient.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/lib/queryClient.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { QueryClient } from "@tanstack/react-query";
+
+async function throwIfResNotOk(res: Response) {
+  if (!res.ok) {
+    // Try to get the error message from the response
+    let errMsg;
+    try {
+      const json = await res.json();
+      errMsg = json.message || `HTTP error! status: ${res.status}`;
+    } catch (e) {
+      errMsg = `HTTP error! status: ${res.status}`;
+    }
+    throw new Error(errMsg);
+  }
+}
+
+export async function apiRequest(
+  method: string,
+  url: string,
+  body?: any,
+): Promise<any> {
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+
+  const options: RequestInit = {
+    method,
+    headers,
+    credentials: "include",
+  };
+
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+
+  const res = await fetch(url, options);
+  await throwIfResNotOk(res);
+  const contentType = res.headers.get("content-type");
+  if (contentType?.includes("application/json")) {
+    return res.json();
+  }
+  return undefined;
+}
+
+type UnauthorizedBehavior = "returnNull" | "throw";
+export const getQueryFn: <T>(options: {
+  on401: UnauthorizedBehavior;
+}) => (context: { queryKey: string[] }) => Promise<T | null> = (options) => async (
+  context,
+) => {
+  const { queryKey } = context;
+  const url = queryKey[0];
+  const res = await fetch(url, {
+    credentials: "include",
+  });
+  if (res.status === 401) {
+    if (options.on401 === "throw") throw new Error("Unauthorized");
+    if (options.on401 === "returnNull") return null;
+  }
+  await throwIfResNotOk(res);
+
+  if (res.headers.get("Content-Length") === "0") {
+    return null;
+  }
+
+  const contentType = res.headers.get("content-type");
+  if (contentType?.includes("application/json")) {
+    return res.json();
+  }
+  return null;
+};
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queryFn: getQueryFn({ on401: "returnNull" }),
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  },
+});</pre>
+    </div>
+  </div>
+
+  <!-- client/src/pages/home.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/pages/home.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { useState } from "react";
+import SearchSection from "@/components/recipe/search-section";
+import RecipeGrid from "@/components/recipe/recipe-grid";
+import RecipeDetail from "@/components/recipe/recipe-detail";
+import { SearchFilters } from "@/types/recipe";
+import { useQuery } from "@tanstack/react-query";
+
+const Home = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState<SearchFilters>({
+    easyOnly: true,
+    quickMeals: false,
+    cuisine: "All cuisines",
+  });
+  const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
+
+  const { data: searchResults, isLoading } = useQuery({
+    queryKey: [
+      `/api/recipes/search?q=${searchQuery}&easyOnly=${filters.easyOnly}&quickMeals=${filters.quickMeals}&cuisine=${filters.cuisine}`,
+    ],
+    enabled: searchQuery !== "" || filters.easyOnly || filters.quickMeals || filters.cuisine !== "All cuisines",
+  });
+
+  const handleSearch = (query: string, newFilters: SearchFilters) => {
+    setSearchQuery(query);
+    setFilters(newFilters);
+  };
+
+  const handleViewRecipe = (recipeId: string) => {
+    setSelectedRecipeId(recipeId);
+  };
+
+  const handleCloseRecipeDetail = () => {
+    setSelectedRecipeId(null);
+  };
+
+  return (
+    <main>
+      <SearchSection onSearch={handleSearch} initialFilters={filters} />
+      <RecipeGrid 
+        isLoading={isLoading}
+        recipes={searchResults?.results || []}
+        onViewRecipe={handleViewRecipe}
+        title={searchQuery ? `Search Results for "${searchQuery}"` : "Popular Easy Recipes"}
+      />
+      {selectedRecipeId && (
+        <RecipeDetail
+          recipeId={selectedRecipeId}
+          onClose={handleCloseRecipeDetail}
+        />
+      )}
+    </main>
+  );
+};
+
+export default Home;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/pages/favorites.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/pages/favorites.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import RecipeDetail from "@/components/recipe/recipe-detail";
+import { Card, CardContent } from "@/components/ui/card";
+import { Heart, AlertCircle } from "lucide-react";
+import { Recipe, Favorite } from "@/types/recipe";
+import RecipeCard from "@/components/recipe/recipe-card";
+
+const FavoritesPage = () => {
+  const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
+
+  const { data: favorites, isLoading, isError } = useQuery({
+    queryKey: ['/api/favorites'],
+  });
+
+  const handleViewRecipe = (recipeId: string) => {
+    setSelectedRecipeId(recipeId);
+  };
+
+  const handleCloseRecipeDetail = () => {
+    setSelectedRecipeId(null);
+  };
+
+  if (isLoading) {
+    return (
+      <section className="py-10 bg-neutral-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold font-heading mb-6">Your Favorite Recipes</h2>
+          <div className="flex justify-center items-center min-h-[300px]">
+            <div className="animate-pulse text-primary">Loading your favorites...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (isError) {
+    return (
+      <section className="py-10 bg-neutral-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold font-heading mb-6">Your Favorite Recipes</h2>
+          <Card className="w-full max-w-md mx-auto">
+            <CardContent className="pt-6">
+              <div className="flex mb-4 gap-2">
+                <AlertCircle className="h-8 w-8 text-red-500" />
+                <h1 className="text-xl font-bold text-gray-900">Error Loading Favorites</h1>
+              </div>
+              <p className="mt-4 text-sm text-gray-600">
+                We couldn't load your favorite recipes. Please try again later.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    );
+  }
+
+  if (!favorites || favorites.length === 0) {
+    return (
+      <section className="py-10 bg-neutral-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold font-heading mb-6">Your Favorite Recipes</h2>
+          <Card className="w-full max-w-md mx-auto">
+            <CardContent className="pt-6 text-center">
+              <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 mb-4">No Favorites Yet</h3>
+              <p className="text-gray-600 mb-6">
+                You haven't added any recipes to your favorites yet. Start exploring and save recipes you love!
+              </p>
+              <a 
+                href="/" 
+                className="inline-block bg-primary text-white font-medium py-2 px-6 rounded-lg hover:bg-opacity-90 transition-all"
+              >
+                Explore Recipes
+              </a>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-10 bg-neutral-100">
+      <div className="container mx-auto px-4">
+        <h2 className="text-2xl font-bold font-heading mb-6">Your Favorite Recipes</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {favorites.map((favorite: Favorite) => (
+            <RecipeCard
+              key={favorite.id}
+              recipe={{
+                id: parseInt(favorite.recipeId),
+                title: favorite.recipeName,
+                image: favorite.recipeImage || "",
+                readyInMinutes: favorite.cookTime || 0,
+                servings: favorite.servings || 0,
+                summary: favorite.summary || "",
+                difficulty: favorite.difficulty as 'easy' | 'medium' | 'hard' || "easy"
+              }}
+              onViewRecipe={() => handleViewRecipe(favorite.recipeId)}
+              favoriteId={favorite.id}
+            />
+          ))}
+        </div>
+      </div>
+
+      {selectedRecipeId && (
+        <RecipeDetail
+          recipeId={selectedRecipeId}
+          onClose={handleCloseRecipeDetail}
+        />
+      )}
+    </section>
+  );
+};
+
+export default FavoritesPage;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/pages/not-found.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/pages/not-found.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { Link } from "wouter";
+
+export default function NotFound() {
+  return (
+    <div className="container mx-auto py-20 px-4">
+      <div className="max-w-md mx-auto text-center">
+        <h1 className="text-6xl font-bold text-primary mb-6">404</h1>
+        <h2 className="text-2xl font-semibold mb-4">Page Not Found</h2>
+        <p className="text-neutral-600 mb-8">
+          The page you are looking for doesn't exist or has been moved.
+        </p>
+        <Link href="/">
+          <a className="inline-block bg-primary text-white font-medium py-2 px-6 rounded-lg hover:bg-opacity-90 transition-all">
+            Go back home
+          </a>
+        </Link>
+      </div>
+    </div>
+  );
+}</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/layout/header.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/layout/header.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { Link } from "wouter";
+
+interface HeaderProps {
+  currentPath: string;
+}
+
+const Header = ({ currentPath }: HeaderProps) => {
+  return (
+    <header className="bg-white shadow-md sticky top-0 z-50">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 4.75C2 3.784 2.784 3 3.75 3h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0116.25 17H3.75A1.75 1.75 0 012 15.25V4.75zM9 9a1 1 0 011-1h5a1 1 0 110 2h-5a1 1 0 01-1-1zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 011-1h5a1 1 0 110 2h-5a1 1 0 01-1-1z" />
+          </svg>
+          <Link href="/">
+            <a className="text-2xl font-bold font-heading text-neutral-900">EasyEats</a>
+          </Link>
+        </div>
+        <nav className="hidden md:flex items-center space-x-6">
+          <Link href="/">
+            <a className={`${currentPath === '/' ? 'text-primary' : 'text-neutral-700 hover:text-primary'} font-medium`}>Home</a>
+          </Link>
+          <Link href="/favorites">
+            <a className={`${currentPath === '/favorites' ? 'text-primary' : 'text-neutral-700 hover:text-primary'} font-medium`}>Favorites</a>
+          </Link>
+        </nav>
+        <button className="md:hidden text-neutral-700 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </header>
+  );
+};
+
+export default Header;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/layout/footer.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/layout/footer.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { Link } from "wouter";
+
+const Footer = () => {
+  return (
+    <footer className="bg-white border-t border-neutral-200 py-8 mt-auto">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex items-center mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 4.75C2 3.784 2.784 3 3.75 3h12.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0116.25 17H3.75A1.75 1.75 0 012 15.25V4.75zM9 9a1 1 0 011-1h5a1 1 0 110 2h-5a1 1 0 01-1-1zm-3 1a1 1 0 100-2 1 1 0 000 2zm0 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 011-1h5a1 1 0 110 2h-5a1 1 0 01-1-1z" />
+            </svg>
+            <span className="text-xl font-bold font-heading text-neutral-900">EasyEats</span>
+          </div>
+          
+          <div className="flex space-x-8 mb-4 md:mb-0">
+            <Link href="/">
+              <a className="text-neutral-600 hover:text-primary">Home</a>
+            </Link>
+            <Link href="/favorites">
+              <a className="text-neutral-600 hover:text-primary">Favorites</a>
+            </Link>
+          </div>
+          
+          <div className="flex space-x-4">
+            <a href="#" className="text-neutral-600 hover:text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+              </svg>
+            </a>
+            <a href="#" className="text-neutral-600 hover:text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <a href="#" className="text-neutral-600 hover:text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+              </svg>
+            </a>
+            <a href="#" className="text-neutral-600 hover:text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.627 0-12 5.373-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div className="mt-8 text-center text-neutral-500 text-sm">
+          <p>© {new Date().getFullYear()} EasyEats. All recipes sourced from our API partners.</p>
+          <p className="mt-1">Design inspired by love for simple cooking.</p>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/recipe/search-section.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/recipe/search-section.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Search } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SearchFilters } from "@/types/recipe";
+
+interface SearchSectionProps {
+  onSearch: (query: string, filters: SearchFilters) => void;
+  initialFilters: SearchFilters;
+}
+
+const CUISINES = [
+  "All cuisines",
+  "Italian",
+  "Asian",
+  "Mexican",
+  "Mediterranean",
+  "American",
+  "Indian",
+  "French",
+  "Greek",
+  "Thai",
+  "Japanese",
+  "Chinese",
+  "Korean",
+];
+
+const SearchSection = ({ onSearch, initialFilters }: SearchSectionProps) => {
+  const [query, setQuery] = useState("");
+  const [filters, setFilters] = useState<SearchFilters>(initialFilters);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch(query, filters);
+  };
+
+  const handleFilterChange = (key: keyof SearchFilters, value: any) => {
+    const newFilters = { ...filters, [key]: value };
+    setFilters(newFilters);
+  };
+
+  return (
+    <section className="bg-secondary bg-opacity-10 py-8">
+      <div className="container mx-auto px-4">
+        <div className="max-w-2xl mx-auto text-center mb-8">
+          <h2 className="text-3xl font-bold font-heading mb-4">Find Easy Recipes</h2>
+          <p className="text-neutral-700">Discover simple, delicious meals that anyone can make.</p>
+        </div>
+        
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white rounded-lg shadow-md p-4">
+            <form onSubmit={handleSubmit}>
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex-grow relative">
+                  <Input 
+                    type="text" 
+                    placeholder="Search for recipes..." 
+                    className="w-full pl-10 pr-4 py-6"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                  />
+                  <div className="absolute left-3 top-3 text-neutral-400">
+                    <Search className="h-5 w-5" />
+                  </div>
+                </div>
+                <Button 
+                  type="submit"
+                  className="bg-primary text-white font-medium py-6 px-6 rounded-lg hover:bg-opacity-90 transition-all"
+                >
+                  Search
+                </Button>
+              </div>
+              
+              <div className="mt-4 flex flex-wrap gap-2">
+                <div className="text-sm font-medium text-neutral-700 self-center">Filters:</div>
+                
+                <div className="flex-grow">
+                  <div className="inline-flex items-center mr-4">
+                    <Checkbox 
+                      id="easy-only" 
+                      checked={filters.easyOnly}
+                      onCheckedChange={(checked) => handleFilterChange("easyOnly", checked)}
+                    />
+                    <Label htmlFor="easy-only" className="ml-2 text-sm text-neutral-700">Easy recipes only</Label>
+                  </div>
+                  
+                  <div className="inline-flex items-center mr-4">
+                    <Checkbox 
+                      id="quick-meals" 
+                      checked={filters.quickMeals}
+                      onCheckedChange={(checked) => handleFilterChange("quickMeals", checked)}
+                    />
+                    <Label htmlFor="quick-meals" className="ml-2 text-sm text-neutral-700">Quick meals (&lt;30 min)</Label>
+                  </div>
+                  
+                  <div className="inline-block">
+                    <Select 
+                      value={filters.cuisine}
+                      onValueChange={(value) => handleFilterChange("cuisine", value)}
+                    >
+                      <SelectTrigger className="text-sm border border-neutral-200 rounded">
+                        <SelectValue placeholder="Select cuisine" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CUISINES.map((cuisine) => (
+                          <SelectItem key={cuisine} value={cuisine}>{cuisine}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SearchSection;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/recipe/recipe-card.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/recipe/recipe-card.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { useQuery, useMutation } from "@tanstack/react-query";
+import { Recipe } from "@/types/recipe";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { Heart, Clock, Users } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import DifficultyBadge from "@/components/ui/difficulty-badge";
+
+interface RecipeCardProps {
+  recipe: Recipe;
+  onViewRecipe: (recipeId: string) => void;
+  favoriteId?: number;
+}
+
+const RecipeCard = ({ recipe, onViewRecipe, favoriteId }: RecipeCardProps) => {
+  const { toast } = useToast();
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Check if recipe is in favorites if not already known
+  const { data: favoriteStatus } = useQuery({
+    queryKey: ['/api/favorites/check', recipe.id.toString()],
+    queryFn: () => fetch(`/api/favorites/check/${recipe.id}`).then(res => res.json()),
+    enabled: !favoriteId,
+  });
+
+  const isFavorite = favoriteId || (favoriteStatus?.isFavorite);
+  const currentFavoriteId = favoriteId || (favoriteStatus?.favorite?.id);
+
+  // Add to favorites mutation
+  const addToFavorites = useMutation({
+    mutationFn: async () => {
+      return apiRequest('POST', '/api/favorites', {
+        recipeId: recipe.id.toString(),
+        recipeName: recipe.title,
+        recipeImage: recipe.image,
+        cookTime: recipe.readyInMinutes,
+        difficulty: recipe.difficulty,
+        servings: recipe.servings,
+        summary: recipe.summary
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Added to favorites",
+        description: `${recipe.title} has been added to your favorites.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites/check', recipe.id.toString()] });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to add recipe to favorites.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Remove from favorites mutation
+  const removeFromFavorites = useMutation({
+    mutationFn: async () => {
+      return apiRequest('DELETE', `/api/favorites/${currentFavoriteId}`);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Removed from favorites",
+        description: `${recipe.title} has been removed from your favorites.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites/check', recipe.id.toString()] });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to remove recipe from favorites.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const toggleFavorite = () => {
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 1000);
+    
+    if (isFavorite) {
+      removeFromFavorites.mutate();
+    } else {
+      addToFavorites.mutate();
+    }
+  };
+
+  return (
+    <div className="recipe-card bg-white rounded-lg overflow-hidden shadow-md relative">
+      <div className="relative">
+        <img 
+          src={recipe.image} 
+          alt={recipe.title} 
+          className="w-full h-48 object-cover" 
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "https://via.placeholder.com/400x300?text=No+Image+Available";
+          }}
+        />
+        <DifficultyBadge difficulty={recipe.difficulty || "easy"} />
+        <button 
+          className={`absolute top-3 left-3 bg-white bg-opacity-90 p-2 rounded-full shadow-sm ${isFavorite ? 'heart-active text-primary' : 'text-neutral-500 hover:text-primary'}`}
+          onClick={toggleFavorite}
+          disabled={addToFavorites.isPending || removeFromFavorites.isPending}
+        >
+          <Heart 
+            className={`h-5 w-5 ${isAnimating ? 'animate-heartBeat' : ''}`} 
+            fill={isFavorite ? "currentColor" : "none"} 
+          />
+        </button>
+      </div>
+      <div className="p-4">
+        <h3 className="font-heading font-bold text-lg mb-2">{recipe.title}</h3>
+        <div className="flex text-sm text-neutral-700 mb-3">
+          <div className="flex items-center mr-4">
+            <Clock className="h-4 w-4 mr-1 text-neutral-500" />
+            <span>{recipe.readyInMinutes || 0} mins</span>
+          </div>
+          <div className="flex items-center">
+            <Users className="h-4 w-4 mr-1 text-neutral-500" />
+            <span>{recipe.servings || 0} servings</span>
+          </div>
+        </div>
+        <p className="text-neutral-600 text-sm line-clamp-2 mb-4">
+          {recipe.summary ? (
+            <span dangerouslySetInnerHTML={{ __html: recipe.summary.substring(0, 120) + '...' }} />
+          ) : (
+            'No description available for this recipe.'
+          )}
+        </p>
+        <button 
+          onClick={() => onViewRecipe(recipe.id.toString())}
+          className="inline-block text-primary font-medium text-sm hover:underline"
+        >
+          View Recipe →
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default RecipeCard;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/recipe/recipe-grid.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/recipe/recipe-grid.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { Button } from "@/components/ui/button";
+import RecipeCard from "@/components/recipe/recipe-card";
+import { Recipe } from "@/types/recipe";
+import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+interface RecipeGridProps {
+  recipes: Recipe[];
+  onViewRecipe: (recipeId: string) => void;
+  title: string;
+  isLoading: boolean;
+}
+
+const RecipeGrid = ({ recipes, onViewRecipe, title, isLoading }: RecipeGridProps) => {
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  const loadMore = () => {
+    setVisibleCount(prevCount => prevCount + 6);
+  };
+
+  // Loading skeletons
+  if (isLoading) {
+    return (
+      <section className="py-10 bg-neutral-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold font-heading mb-6">{title}</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array(6).fill(0).map((_, i) => (
+              <div key={i} className="bg-white rounded-lg overflow-hidden shadow-md">
+                <Skeleton className="w-full h-48" />
+                <div className="p-4">
+                  <Skeleton className="h-6 w-3/4 mb-4" />
+                  <div className="flex mb-3">
+                    <Skeleton className="h-4 w-20 mr-4" />
+                    <Skeleton className="h-4 w-24" />
+                  </div>
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-full mb-4" />
+                  <Skeleton className="h-4 w-28" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // No results
+  if (recipes.length === 0) {
+    return (
+      <section className="py-10 bg-neutral-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold font-heading mb-6">{title}</h2>
+          <div className="bg-white rounded-lg p-8 text-center">
+            <h3 className="text-xl font-bold mb-4">No recipes found</h3>
+            <p className="text-neutral-600 mb-4">
+              Try adjusting your search terms or filters to find more recipes.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-10 bg-neutral-100">
+      <div className="container mx-auto px-4">
+        <h2 className="text-2xl font-bold font-heading mb-6">{title}</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {recipes.slice(0, visibleCount).map(recipe => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              onViewRecipe={onViewRecipe}
+            />
+          ))}
+        </div>
+        
+        {visibleCount < recipes.length && (
+          <div className="mt-8 text-center">
+            <Button 
+              onClick={loadMore}
+              variant="outline"
+              className="bg-white text-primary font-medium py-2 px-6 rounded-lg border border-primary hover:bg-primary hover:text-white transition-all"
+            >
+              Load More Recipes
+            </Button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default RecipeGrid;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/recipe/recipe-detail.tsx (partial for length) -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/recipe/recipe-detail.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { X, Share2, Printer, Clock, Users, Check, Heart } from "lucide-react";
+import { useState } from "react";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import RecipeStep from "@/components/ui/recipe-step";
+import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
+
+interface RecipeDetailProps {
+  recipeId: string;
+  onClose: () => void;
+}
+
+const RecipeDetail = ({ recipeId, onClose }: RecipeDetailProps) => {
+  const { toast } = useToast();
+  const [isOpen, setIsOpen] = useState(true);
+  
+  const closeModal = () => {
+    setIsOpen(false);
+    onClose();
+  };
+
+  // Get recipe details
+  const { data: recipe, isLoading, error } = useQuery({
+    queryKey: [`/api/recipes/${recipeId}`],
+  });
+
+  // Check favorite status
+  const { data: favoriteStatus } = useQuery({
+    queryKey: ['/api/favorites/check', recipeId],
+    queryFn: () => fetch(`/api/favorites/check/${recipeId}`).then(res => res.json()),
+  });
+
+  // Add to favorites mutation
+  const addToFavorites = useMutation({
+    mutationFn: async () => {
+      return apiRequest('POST', '/api/favorites', {
+        recipeId,
+        recipeName: recipe.title,
+        recipeImage: recipe.image,
+        cookTime: recipe.readyInMinutes,
+        difficulty: recipe.difficulty,
+        servings: recipe.servings,
+        summary: recipe.summary
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Added to favorites",
+        description: `${recipe.title} has been added to your favorites.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites/check', recipeId] });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to add recipe to favorites.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Remove from favorites mutation
+  const removeFromFavorites = useMutation({
+    mutationFn: async () => {
+      return apiRequest('DELETE', `/api/favorites/${favoriteStatus.favorite.id}`);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Removed from favorites",
+        description: `${recipe.title} has been removed from your favorites.`,
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/favorites/check', recipeId] });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to remove recipe from favorites.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const toggleFavorite = () => {
+    if (favoriteStatus?.isFavorite) {
+      removeFromFavorites.mutate();
+    } else {
+      addToFavorites.mutate();
+    }
+  };
+
+  const shareRecipe = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: recipe.title,
+        text: `Check out this recipe for ${recipe.title}`,
+        url: window.location.href,
+      }).catch(error => {
+        console.log('Error sharing:', error);
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Link copied!",
+        description: "Recipe link copied to clipboard",
+      });
+    }
+  };
+
+  const printRecipe = () => {
+    window.print();
+  };
+
+  const copyIngredients = () => {
+    if (!recipe || !recipe.extendedIngredients) return;
+    
+    const ingredientsList = recipe.extendedIngredients
+      .map(ing => `• ${ing.original}`)
+      .join('\n');
+      
+    navigator.clipboard.writeText(ingredientsList);
+    
+    toast({
+      title: "Copied!",
+      description: "Ingredients copied to clipboard",
+    });
+  };
+
+  if (error) {
+    return (
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="sm:max-w-5xl max-h-[90vh] overflow-auto">
+          <div className="p-4 text-center">
+            <h3 className="text-xl font-bold text-red-500 mb-4">Error Loading Recipe</h3>
+            <p className="mb-4">We couldn't load this recipe. Please try again later.</p>
+            <Button onClick={closeModal}>Close</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  // Note: This is a partial implementation - the full component has much more code for displaying
+  // recipe details, ingredients, instructions, and nutrition information
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="sm:max-w-5xl max-h-[90vh] overflow-auto p-0 gap-0">
+        {/* Close button */}
+        <Button 
+          onClick={closeModal} 
+          variant="ghost" 
+          size="icon" 
+          className="absolute top-4 right-4 md:top-8 md:right-8 bg-white rounded-full p-2 shadow-md"
+        >
+          <X className="h-6 w-6 text-neutral-900" />
+        </Button>
+        
+        {/* Recipe content - simplified for brevity */}
+        <div className="p-6 md:p-8">
+          {isLoading ? (
+            <div className="animate-pulse">
+              <Skeleton className="h-10 w-3/4 mb-6" />
+              {/* Loading skeleton UI */}
+            </div>
+          ) : recipe ? (
+            <>
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold font-heading">{recipe.title}</h2>
+                {/* Recipe display content */}
+              </div>
+              
+              <Tabs defaultValue="ingredients">
+                <TabsList>
+                  <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
+                  <TabsTrigger value="instructions">Instructions</TabsTrigger>
+                  {recipe.nutrition && (
+                    <TabsTrigger value="nutrition">Nutrition</TabsTrigger>
+                  )}
+                </TabsList>
+                
+                {/* Tab content for ingredients, instructions and nutrition */}
+              </Tabs>
+            </>
+          ) : null}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default RecipeDetail;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/ui/difficulty-badge.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/ui/difficulty-badge.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>interface DifficultyBadgeProps {
+  difficulty: 'easy' | 'medium' | 'hard';
+}
+
+const DifficultyBadge = ({ difficulty }: DifficultyBadgeProps) => {
+  const badgeColor = 
+    difficulty === 'easy' ? 'difficulty-easy' : 
+    difficulty === 'medium' ? 'difficulty-medium' : 
+    'difficulty-hard';
+
+  return (
+    <span className={`difficulty-badge ${badgeColor}`}>
+      {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+    </span>
+  );
+};
+
+export default DifficultyBadge;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/components/ui/recipe-step.tsx -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/components/ui/recipe-step.tsx<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>interface RecipeStepProps {
+  number: number;
+  text: string;
+}
+
+const RecipeStep = ({ number, text }: RecipeStepProps) => {
+  return (
+    <li className="recipe-step">
+      {text}
+    </li>
+  );
+};
+
+export default RecipeStep;</pre>
+    </div>
+  </div>
+
+  <!-- client/src/types/recipe.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">client/src/types/recipe.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>export interface Ingredient {
+  id: number;
+  name: string;
+  amount: number;
+  unit: string;
+  original: string;
+}
+
+export interface InstructionStep {
+  number: number;
+  step: string;
+}
+
+export interface Instruction {
+  name: string;
+  steps: InstructionStep[];
+}
+
+export interface Recipe {
+  id: number;
+  title: string;
+  image: string;
+  imageType?: string;
+  readyInMinutes: number;
+  servings: number;
+  summary: string;
+  instructions?: string;
+  extendedIngredients?: Ingredient[];
+  analyzedInstructions?: Instruction[];
+  difficulty?: 'easy' | 'medium' | 'hard';
+  sourceUrl?: string;
+  nutrition?: {
+    nutrients: Array<{
+      name: string;
+      amount: number;
+      unit: string;
+    }>;
+  };
+}
+
+export interface RecipeSearchResult {
+  results: Recipe[];
+  offset: number;
+  number: number;
+  totalResults: number;
+}
+
+export interface SearchFilters {
+  easyOnly: boolean;
+  quickMeals: boolean;
+  cuisine: string;
+}
+
+export interface Favorite {
+  id: number;
+  userId: number;
+  recipeId: string;
+  recipeName: string;
+  recipeImage?: string;
+  cookTime?: number;
+  difficulty?: string;
+  servings?: number;
+  summary?: string;
+  dateAdded: string;
+}</pre>
+    </div>
+  </div>
+
+  <h2 id="server-section" class="section-header">Server-Side Files</h2>
+
+  <!-- server/index.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">server/index.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import express, { type Request, Response, NextFunction } from "express";
+import { registerRoutes } from "./routes";
+import { setupVite, serveStatic, log } from "./vite";
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path = req.path;
+  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+
+  const originalResJson = res.json;
+  res.json = function (bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
+
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path.startsWith("/api")) {
+      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
+
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "…";
+      }
+
+      log(logLine);
+    }
+  });
+
+  next();
+});
+
+(async () => {
+  const server = await registerRoutes(app);
+
+  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+
+    res.status(status).json({ message });
+    throw err;
+  });
+
+  // importantly only setup vite in development and after
+  // setting up all the other routes so the catch-all route
+  // doesn't interfere with the other routes
+  if (app.get("env") === "development") {
+    await setupVite(app, server);
+  } else {
+    serveStatic(app);
+  }
+
+  // ALWAYS serve the app on port 5000
+  // this serves both the API and the client.
+  // It is the only port that is not firewalled.
+  const port = 5000;
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true,
+  }, () => {
+    log(`serving on port ${port}`);
+  });
+})();</pre>
+    </div>
+  </div>
+
+  <!-- server/routes.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">server/routes.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import type { Express } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "./storage";
+import { z } from "zod";
+import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
+
+export async function registerRoutes(app: Express): Promise<Server> {
+  // put application routes here
+  // prefix all routes with /api
+
+  // Set up recipe search endpoint
+  app.get("/api/recipes/search", async (req, res) => {
+    try {
+      const query = req.query.q as string || "";
+      const filters = {
+        easyOnly: req.query.easyOnly === "true",
+        quickMeals: req.query.quickMeals === "true",
+        cuisine: req.query.cuisine as string || "All cuisines"
+      };
+      
+      const recipes = await storage.searchRecipes(query, filters);
+      res.json(recipes);
+    } catch (error) {
+      console.error("Recipe search error:", error);
+      res.status(500).json({ message: "Failed to search recipes" });
+    }
+  });
+
+  // Get a specific recipe by ID
+  app.get("/api/recipes/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const recipe = await storage.getRecipeById(id);
+      res.json(recipe);
+    } catch (error) {
+      console.error("Get recipe error:", error);
+      res.status(500).json({ message: "Failed to fetch recipe details" });
+    }
+  });
+
+  // Get all favorites
+  app.get("/api/favorites", async (req, res) => {
+    try {
+      // For demo purposes, using a fixed userId of 1
+      const userId = 1;
+      const favorites = await storage.getFavorites(userId);
+      res.json(favorites);
+    } catch (error) {
+      console.error("Get favorites error:", error);
+      res.status(500).json({ message: "Failed to fetch favorites" });
+    }
+  });
+
+  // Add a recipe to favorites
+  app.post("/api/favorites", async (req, res) => {
+    try {
+      // Define schema for favorite
+      const favoriteSchema = z.object({
+        userId: z.number(),
+        recipeId: z.string(),
+        recipeName: z.string(),
+        recipeImage: z.string().optional(),
+        cookTime: z.number().optional(),
+        difficulty: z.string().optional(),
+        servings: z.number().optional(),
+        summary: z.string().optional(),
+        dateAdded: z.string()
+      });
+      
+      // Validate request body
+      const favoriteData = favoriteSchema.parse({
+        ...req.body,
+        userId: 1, // For demo purposes, using a fixed userId of 1
+        dateAdded: new Date().toISOString()
+      });
+      
+      // Check if recipe is already in favorites
+      const existingFavorite = await storage.getFavoriteByRecipeId(favoriteData.userId, favoriteData.recipeId);
+      
+      if (existingFavorite) {
+        return res.status(409).json({ message: "Recipe already in favorites" });
+      }
+      
+      const favorite = await storage.addFavorite(favoriteData);
+      res.status(201).json(favorite);
+    } catch (error) {
+      console.error("Add favorite error:", error);
+      
+      if (error instanceof ZodError) {
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      
+      res.status(500).json({ message: "Failed to add recipe to favorites" });
+    }
+  });
+
+  // Remove a recipe from favorites
+  app.delete("/api/favorites/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const favorite = await storage.getFavoriteById(parseInt(id));
+      
+      if (!favorite) {
+        return res.status(404).json({ message: "Favorite not found" });
+      }
+      
+      await storage.removeFavorite(parseInt(id));
+      res.status(204).send();
+    } catch (error) {
+      console.error("Remove favorite error:", error);
+      res.status(500).json({ message: "Failed to remove recipe from favorites" });
+    }
+  });
+
+  // Check if a recipe is in favorites
+  app.get("/api/favorites/check/:recipeId", async (req, res) => {
+    try {
+      const { recipeId } = req.params;
+      const userId = 1; // For demo purposes, using a fixed userId of 1
+      
+      const favorite = await storage.getFavoriteByRecipeId(userId, recipeId);
+      res.json({ isFavorite: !!favorite, favorite });
+    } catch (error) {
+      console.error("Check favorite error:", error);
+      res.status(500).json({ message: "Failed to check favorite status" });
+    }
+  });
+
+  const httpServer = createServer(app);
+
+  return httpServer;
+}</pre>
+    </div>
+  </div>
+
+  <!-- server/storage.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">server/storage.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { favorites, type Favorite, type InsertFavorite, type Recipe } from "@shared/schema";
+import axios from "axios";
+
+// modify the interface with any CRUD methods
+// you might need
+
+export interface IStorage {
+  getUser(id: number): Promise<any | undefined>;
+  getUserByUsername(username: string): Promise<any | undefined>;
+  createUser(user: any): Promise<any>;
+  
+  // Favorites
+  getFavorites(userId: number): Promise<Favorite[]>;
+  getFavoriteById(id: number): Promise<Favorite | undefined>;
+  getFavoriteByRecipeId(userId: number, recipeId: string): Promise<Favorite | undefined>;
+  addFavorite(favorite: InsertFavorite): Promise<Favorite>;
+  removeFavorite(id: number): Promise<void>;
+  
+  // Recipes from API
+  searchRecipes(query: string, filters: any): Promise<any>;
+  getRecipeById(id: string): Promise<any>;
+}
+
+export class MemStorage implements IStorage {
+  private users: Map<number, any>;
+  private favoritesList: Map<number, Favorite>;
+  currentUserId: number;
+  currentFavoriteId: number;
+  
+  constructor() {
+    this.users = new Map();
+    this.favoritesList = new Map();
+    this.currentUserId = 1;
+    this.currentFavoriteId = 1;
+  }
+
+  async getUser(id: number): Promise<any | undefined> {
+    return this.users.get(id);
+  }
+
+  async getUserByUsername(username: string): Promise<any | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.username === username,
+    );
+  }
+
+  async createUser(insertUser: any): Promise<any> {
+    const id = this.currentUserId++;
+    const user = { ...insertUser, id };
+    this.users.set(id, user);
+    return user;
+  }
+  
+  // Favorites methods
+  async getFavorites(userId: number): Promise<Favorite[]> {
+    return Array.from(this.favoritesList.values()).filter(
+      favorite => favorite.userId === userId
+    );
+  }
+  
+  async getFavoriteById(id: number): Promise<Favorite | undefined> {
+    return this.favoritesList.get(id);
+  }
+  
+  async getFavoriteByRecipeId(userId: number, recipeId: string): Promise<Favorite | undefined> {
+    return Array.from(this.favoritesList.values()).find(
+      favorite => favorite.userId === userId && favorite.recipeId === recipeId
+    );
+  }
+  
+  async addFavorite(insertFavorite: InsertFavorite): Promise<Favorite> {
+    const id = this.currentFavoriteId++;
+    const favorite: Favorite = { ...insertFavorite, id };
+    this.favoritesList.set(id, favorite);
+    return favorite;
+  }
+  
+  async removeFavorite(id: number): Promise<void> {
+    this.favoritesList.delete(id);
+  }
+  
+  // Recipe API methods
+  async searchRecipes(query: string, filters: any): Promise<any> {
+    try {
+      const apiKey = process.env.SPOONACULAR_API_KEY || '';
+      if (!apiKey) {
+        throw new Error('API key not found');
+      }
+      
+      const params: Record<string, any> = {
+        apiKey,
+        query,
+        number: 12,
+      };
+      
+      // Add filter parameters
+      if (filters.easyOnly) {
+        params.maxReadyTime = 45; // Easy recipes are typically quick to make
+      }
+      
+      if (filters.quickMeals) {
+        params.maxReadyTime = 30;
+      }
+      
+      if (filters.cuisine && filters.cuisine !== 'All cuisines') {
+        params.cuisine = filters.cuisine;
+      }
+      
+      const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch', {
+        params: {
+          ...params,
+          addRecipeInformation: true,
+          fillIngredients: true,
+        }
+      });
+      
+      // Process results to add difficulty level based on cooking time
+      const results = response.data.results.map((recipe: any) => {
+        let difficulty = 'medium';
+        if (recipe.readyInMinutes <= 30) {
+          difficulty = 'easy';
+        } else if (recipe.readyInMinutes > 60) {
+          difficulty = 'hard';
+        }
+        
+        return {
+          ...recipe,
+          difficulty
+        };
+      });
+      
+      // If easyOnly filter is applied, filter results client-side to only include easy recipes
+      const filteredResults = filters.easyOnly 
+        ? results.filter((recipe: any) => recipe.difficulty === 'easy')
+        : results;
+        
+      return {
+        ...response.data,
+        results: filteredResults
+      };
+    } catch (error) {
+      console.error('Error searching recipes:', error);
+      throw error;
+    }
+  }
+  
+  async getRecipeById(id: string): Promise<any> {
+    try {
+      const apiKey = process.env.SPOONACULAR_API_KEY || '';
+      if (!apiKey) {
+        throw new Error('API key not found');
+      }
+      
+      const response = await axios.get(`https://api.spoonacular.com/recipes/${id}/information`, {
+        params: {
+          apiKey,
+          includeNutrition: true,
+        }
+      });
+      
+      // Add difficulty level based on cooking time
+      let difficulty = 'medium';
+      if (response.data.readyInMinutes <= 30) {
+        difficulty = 'easy';
+      } else if (response.data.readyInMinutes > 60) {
+        difficulty = 'hard';
+      }
+      
+      return {
+        ...response.data,
+        difficulty
+      };
+    } catch (error) {
+      console.error('Error fetching recipe:', error);
+      throw error;
+    }
+  }
+}
+
+export const storage = new MemStorage();</pre>
+    </div>
+  </div>
+
+  <!-- server/vite.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">server/vite.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import express, { type Express } from "express";
+import { Server } from "http";
+import path from "path";
+import fs from "fs";
+
+export function log(message: string, source = "express") {
+  console.log(`[${source}] ${message}`);
+}
+
+export async function setupVite(app: Express, server: Server) {
+  // This is a catch-all route that serves the Vite dev server
+  // importantly, it must be registered after all other routes
+  // have been registered
+  log("Setting up Vite");
+  const { createServer: createViteServer } = await import("vite");
+  const vite = await createViteServer({
+    configFile: path.resolve("vite.config.ts"),
+    root: path.resolve("."),
+    server: { middlewareMode: true, hmr: { server: server } },
+    appType: "spa",
+  });
+  app.use(vite.middlewares);
+}
+
+export function serveStatic(app: Express) {
+  const servePath = path.join(process.cwd(), "dist");
+  log(`Serving static files from ${servePath}`);
+  if (fs.existsSync(servePath)) {
+    app.use(express.static(servePath));
+    app.get("*", (_req, res) => {
+      res.sendFile(path.join(servePath, "index.html"));
+    });
+  } else {
+    log("No static files found. Run `npm run build` first.");
+  }
+}</pre>
+    </div>
+  </div>
+
+  <h2 id="shared-section" class="section-header">Shared Files</h2>
+
+  <!-- shared/schema.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">shared/schema.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { pgTable, serial, varchar, integer, text, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
+// User schema
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).unique().notNull(),
+  password: varchar("password", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertUserSchema = createInsertSchema(users).pick({
+  name: true,
+  email: true,
+  password: true,
+});
+
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type User = typeof users.$inferSelect;
+
+// Favorites schema
+export const favorites = pgTable("favorites", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  recipeId: varchar("recipe_id", { length: 50 }).notNull(),
+  recipeName: varchar("recipe_name", { length: 255 }).notNull(),
+  recipeImage: text("recipe_image"),
+  cookTime: integer("cook_time"),
+  difficulty: varchar("difficulty", { length: 50 }),
+  servings: integer("servings"),
+  summary: text("summary"),
+  dateAdded: timestamp("date_added").defaultNow().notNull(),
+});
+
+export const insertFavoriteSchema = createInsertSchema(favorites).omit({
+  id: true,
+});
+
+export type InsertFavorite = z.infer<typeof insertFavoriteSchema>;
+export type Favorite = typeof favorites.$inferSelect;
+
+// Recipe schema for API data
+export const recipeSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  image: z.string(),
+  imageType: z.string().optional(),
+  servings: z.number(),
+  readyInMinutes: z.number(),
+  license: z.string().optional(),
+  sourceName: z.string().optional(),
+  sourceUrl: z.string().optional(),
+  spoonacularScore: z.number().optional(),
+  healthScore: z.number().optional(),
+  spoonacularSourceUrl: z.string().optional(),
+  pricePerServing: z.number().optional(),
+  cheap: z.boolean().optional(),
+  creditsText: z.string().optional(),
+  dairyFree: z.boolean().optional(),
+  gaps: z.string().optional(),
+  glutenFree: z.boolean().optional(),
+  instructions: z.string().optional(),
+  ketogenic: z.boolean().optional(),
+  lowFodmap: z.boolean().optional(),
+  occasions: z.array(z.string()).optional(),
+  sustainable: z.boolean().optional(),
+  vegan: z.boolean().optional(),
+  vegetarian: z.boolean().optional(),
+  veryHealthy: z.boolean().optional(),
+  veryPopular: z.boolean().optional(),
+  whole30: z.boolean().optional(),
+  weightWatcherSmartPoints: z.number().optional(),
+  dishTypes: z.array(z.string()).optional(),
+  extendedIngredients: z.array(
+    z.object({
+      id: z.number(),
+      aisle: z.string().optional(),
+      image: z.string().optional(),
+      consistency: z.string().optional(),
+      name: z.string(),
+      nameClean: z.string().optional(),
+      original: z.string(),
+      originalName: z.string().optional(),
+      amount: z.number(),
+      unit: z.string(),
+      meta: z.array(z.string()).optional(),
+      measures: z.object({
+        us: z.object({
+          amount: z.number(),
+          unitShort: z.string(),
+          unitLong: z.string(),
+        }),
+        metric: z.object({
+          amount: z.number(),
+          unitShort: z.string(),
+          unitLong: z.string(),
+        }),
+      }).optional(),
+    })
+  ).optional(),
+  summary: z.string(),
+  analyzedInstructions: z.array(
+    z.object({
+      name: z.string(),
+      steps: z.array(
+        z.object({
+          number: z.number(),
+          step: z.string(),
+          ingredients: z.array(
+            z.object({
+              id: z.number(),
+              name: z.string(),
+              localizedName: z.string(),
+              image: z.string(),
+            })
+          ).optional(),
+          equipment: z.array(
+            z.object({
+              id: z.number(),
+              name: z.string(),
+              localizedName: z.string(),
+              image: z.string(),
+            })
+          ).optional(),
+        })
+      ),
+    })
+  ).optional(),
+  difficulty: z.enum(["easy", "medium", "hard"]).optional(),
+});
+
+export type Recipe = z.infer<typeof recipeSchema>;
+
+export const recipeSearchResultSchema = z.object({
+  results: z.array(recipeSchema),
+  offset: z.number(),
+  number: z.number(),
+  totalResults: z.number(),
+});
+
+export type RecipeSearchResult = z.infer<typeof recipeSearchResultSchema>;</pre>
+    </div>
+  </div>
+
+  <h2 id="config-section" class="section-header">Configuration Files</h2>
+
+  <!-- package.json -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">package.json<span class="file-type">JSON</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>{
+  "name": "rest-express",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development tsx server/index.ts",
+    "build": "vite build",
+    "preview": "NODE_ENV=production tsx server/index.ts",
+    "start": "NODE_ENV=production node server-dist/index.js",
+    "prepare": "npm run build",
+    "check": "tsc --build --force tsconfig.json tsconfig.server.json",
+    "format": "prettier --write ."
+  },
+  "type": "module",
+  "engines": {
+    "node": "18.x"
+  }
+}</pre>
+    </div>
+  </div>
+
+  <!-- vite.config.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">vite.config.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import shadcnTheme from "@replit/vite-plugin-shadcn-theme-json";
+import replitErrorModal from "@replit/vite-plugin-runtime-error-modal";
+import cartographer from "@replit/vite-plugin-cartographer";
+import path from "path";
+
+export default defineConfig({
+  plugins: [react(), replitErrorModal(), shadcnTheme(), cartographer()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./client/src"),
+      "@shared": path.resolve(__dirname, "./shared"),
+      "@server": path.resolve(__dirname, "./server"),
+      "@assets": path.resolve(__dirname, "./assets"),
+    },
+  },
+});</pre>
+    </div>
+  </div>
+
+  <!-- tailwind.config.ts -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">tailwind.config.ts<span class="file-type">TypeScript</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>import type { Config } from "tailwindcss";
+import { shadcnPlugin } from "./client/src/lib/shadcn-plugin";
+
+const config = {
+  darkMode: ["class"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./client/src/**/*.{ts,tsx}",
+    "./@/components/**/*.{ts,tsx}",
+    "./**/*.{ts,tsx}",
+  ],
+  prefix: "",
+  theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
+  },
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    shadcnPlugin,
+  ],
+} satisfies Config;
+
+export default config;</pre>
+    </div>
+  </div>
+
+  <!-- theme.json -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">theme.json<span class="file-type">JSON</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>{
+  "primary": "#FF6B6B",
+  "variant": "tint",
+  "appearance": "light",
+  "radius": 0.5
+}</pre>
+    </div>
+  </div>
+
+  <!-- tsconfig.json -->
+  <div class="file-container">
+    <div class="file-header">
+      <span class="file-name">tsconfig.json<span class="file-type">JSON</span></span>
+      <button class="file-button" onclick="toggleFile(this)">Hide</button>
+    </div>
+    <div class="file-content">
+<pre>{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["./client/src/*"],
+      "@shared/*": ["./shared/*"],
+      "@server/*": ["./server/*"],
+      "@assets/*": ["./assets/*"]
+    }
+  },
+  "include": ["client/src/**/*", "shared/**/*"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}</pre>
+    </div>
+  </div>
+
+  <script>
+    function toggleFile(button) {
+      const fileContent = button.closest('.file-header').nextElementSibling;
+      const isVisible = fileContent.style.display !== 'none';
+      
+      if (isVisible) {
+        fileContent.style.display = 'none';
+        button.textContent = 'Show';
+      } else {
+        fileContent.style.display = 'block';
+        button.textContent = 'Hide';
+      }
+    }
+    
+    function showAllFiles() {
+      document.querySelectorAll('.file-content').forEach(content => {
+        content.style.display = 'block';
+      });
+      document.querySelectorAll('.file-button').forEach(button => {
+        button.textContent = 'Hide';
+      });
+    }
+    
+    function hideAllFiles() {
+      document.querySelectorAll('.file-content').forEach(content => {
+        content.style.display = 'none';
+      });
+      document.querySelectorAll('.file-button').forEach(button => {
+        button.textContent = 'Show';
+      });
+    }
+
+    function downloadProjectAsZip() {
+      alert('This feature would normally create a zip file with all project files. In a real implementation, this would trigger a download of the entire project structure.');
+    }
+  </script>
+</body>
+</html>
